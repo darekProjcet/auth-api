@@ -31,3 +31,5 @@ router.post('/', async (req, res) => {
     res.status(401).json({ error: 'forbidden' });
   }
 });
+
+export default router;

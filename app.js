@@ -9,6 +9,7 @@ import path from 'path';
 
 import index from './routes/index';
 import register from './routes/registerRoute';
+import login from './routes/loginRoute';
 import Users from './models/users';
 
 Users.sync();
@@ -36,7 +37,8 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/login', register);
+app.use('/register', register);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
