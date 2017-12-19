@@ -8,6 +8,10 @@ import path from 'path';
 // import favicon from 'serve-favicon';
 
 import index from './routes/index';
+import register from './routes/registerRoute';
+import Users from './models/users';
+
+Users.sync();
 
 const app = express();
 const debug = Debug('auth-api:app');
@@ -32,6 +36,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/login', register);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
