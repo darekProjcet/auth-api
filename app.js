@@ -3,11 +3,9 @@ import cookieParser from 'cookie-parser';
 import Debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
-import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 // import favicon from 'serve-favicon';
 
-import index from './routes/index';
 import register from './routes/registerRoute';
 import login from './routes/loginRoute';
 import Users from './models/users';
@@ -28,15 +26,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cookieParser());
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
-}));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
 app.use('/register', register);
 app.use('/login', login);
 
