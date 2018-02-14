@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 import express from 'express';
 import randToken from 'rand-token';
 import Users from '../models/users';
+import mailer from '../service/mailerService';
 
 const router = express.Router();
 
@@ -32,4 +34,23 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/password_reset', (req, res) => {
+  const { email } = req.body.data;
+
+  const user = Users.find({
+    where: {
+      email
+    }
+  });
+
+  if (!user) {
+    return res.status(422).send({ status: 'Invalid data' });
+  }
+
+  try {
+    mailer.sendMailToUser(user.email, user.token);
+  } catch (err) {
+    res.status(422).send({ status: `Error: ${err}` });
+  }
+});
 export default router;
